@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Dongle&family=Mochiy+Pop+P+One&family=Playfair+Display&display=swap" rel="stylesheet">
+        <title>Color Guessing Game</title>
+
+        <style>
+            .content {
+                max-width: 960px;
+                margin: auto;
+                }
+
+            body {
+                background: linear-gradient(-45deg, #ee6f49, #e73c7e, #23a6d5, #23d5ab);
+                background-size: 400% 400%;
+                animation: gradient 10s ease infinite;
+                height: 100vh;
+            }
+    
+            @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+
+            }
+
+            h1 {
+                color: rgb(31, 31, 34);
+                background-color: rgb(197, 197, 202);
+                font-family: 'Architects Daughter', cursive, serif;
+                font-size: 30px;
+                text-align: center;
+                border: 2px solid black;
+                border-radius: 10px;
+                padding: 2px;
+                width: 330px;
+                height: auto;
+                margin: auto;   
+            }
+
+           button {
+                padding: 2px;
+                font-family: 'Courier New', Courier, monospace;
+                margin: auto;
+                color: white;
+                box-shadow: 1px 1px 1px 1px rgb(27, 26, 26);
+                background-color: rgb(94, 84, 94);
+                border: 2px solid black;
+                border-radius: 5px;
+                display: block;
+               } 
+
+            div.btn {
+                padding-top: 10px;
+            }   
+            button:hover {
+                background:linear-gradient(to bottom, #c5bb9f 5%, #eae0c2 100%);
+	            background-color:#ccc2a6;
+            }
+            
+        </style>
+    </head>
+<body>
+
+    <div class="content">
+    <!-- Page content -->
+    <h1>Color Guessing Game</h1>
+    <div class="btn">
+    <button type="button" onclick="runGame()">Let's Play</button>
+    </div>
+
+    <script>
+        const COLORS_ARRAY = ['blue','teal','gold','gray','green','purple','orange','red','white','yellow'];
+        COLORS_ARRAY.sort();
+
+
+        function runGame() {
+            let guess = '';
+            let correct= false;
+            let numTries = 0;
+
+            const targetIndex = Math.floor(Math.random() * COLORS_ARRAY.length);
+            const target = COLORS_ARRAY[targetIndex];
+            console.log(target);   
+            
+        do {
+            guess = prompt('I am thinking of one of these colors:\n\n' + COLORS_ARRAY.join(" , ") + '\n\nWhat color am I thinking of?\n');
+            numTries += 1;
+
+            {if (guess === null) {
+                alert('Have a nice day!')
+                return " "
+            }
+        }
+            correct = checkGuess(guess, target);
+
+        } while (!correct)
+            alert('Congratulations! You have guessed the color!\n\n' + 'It took you ' + numTries + ' guesses to finish the game!\n\n' + 'Hit OK to see the color in the background.');
+            document.body.style.background = guess;
+      
+    }
+
+        function checkGuess(guess, target) {
+        let correct = false;
+        guess = guess.toLowerCase ();
+        if (!COLORS_ARRAY.includes(guess)) {
+        alert('Sorry, I do not recognize your color.\n\nPlease try again.');
+        } else if (COLORS_ARRAY.indexOf(guess) > COLORS_ARRAY.indexOf(target)) {
+        alert('Sorry, your guess is incorrect.\n\nHint: your color is alphabetically higher than mine.\n\nPlease try again.');
+        } else if (COLORS_ARRAY.indexOf(guess) < COLORS_ARRAY.indexOf(target)) {
+        alert('Sorry, your guess is incorrect.\n\nHint: your color is alphabetically lower than mine.\n\nPlease try again.');
+        } else {
+        correct = true;
+    }
+        return correct;
+    }
+
+    </script>
+    </div>
+</body>
+</html>
